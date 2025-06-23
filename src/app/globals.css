@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
+/* Navbar Component */
 .trapezoid-gradient {
   background: linear-gradient(to right, #004D66 40%, #003FFF 60%);
   clip-path: polygon(40px 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* Login Background Component */
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
 }
