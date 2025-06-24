@@ -5,7 +5,7 @@ import Link from 'next/link';
 interface AuthImageCardProps {
     title: string;
     description: string;
-    activeTab: 'login' | 'register';
+    activeTab: string;
     imagePosition?: 'left' | 'right';
     imageSrc: string;
     imageAlt?: string; 
