@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Footer: React.FC = () => {
     return (
-        <footer className="bg-gradient-to-r from-[#3D78C5] to-[#1D3A5F] text-white relative">
+        <footer className="mt-12 bg-gradient-to-r from-[#3D78C5] to-[#1D3A5F] text-white relative">
             {/* Top warning banner */}
             <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                 <div className="bg-white py-4 px-6 rounded-2xl shadow-lg border border-gray-200">
@@ -18,8 +18,8 @@ const Footer: React.FC = () => {
                                 className="object-contain"
                             />
                         </div>
-                        <span className="text-gray-800 text-lg">
-                            ได้รับใบอนุญาติจากกองงาน <span className="text-red-600 font-bold">สลกข.</span>
+                        <span className="text-gray-800 text-lg font-sans">
+                            ได้รับใบอนุญาติจากกองงาน <span className="text-red-600 font-bold">กสทช.</span>
                         </span>
                     </div>
                 </div>
