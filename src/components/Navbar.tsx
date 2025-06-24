@@ -11,7 +11,7 @@ const navItems = [
     { label: 'OTP', href: '/otp' },
     { label: 'ผู้ติดตาม', href: '/followers' },
     { label: 'เติมเงิน', href: '/topup' },
-    { label: 'บัตรเงินสด', href: '/card' },
+    { label: 'บัตรเงินสด', href: '/cash-card' },
 ];
 
 export default function Navbar() {
