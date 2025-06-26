@@ -3,17 +3,15 @@
 import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@hooks/useAuth';
 
-interface LoginFormProps {
-    onLoginSuccess?: (user: { name: string; credit: number }) => void;
-}
-
-const LoginForm: FC<LoginFormProps> = ({ onLoginSuccess }) => {
+const LoginForm: FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
+    const { login } = useAuth(); // ใช้ hook แทน props
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -21,45 +19,31 @@ const LoginForm: FC<LoginFormProps> = ({ onLoginSuccess }) => {
         setIsLoading(true);
         setError('');
 
-        // จำลองการเข้าสู่ระบบ
         try {
             // Simulate API call delay
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Simple validation for demo
             if (username === 'admin' && password === '123456') {
-                // จำลองข้อมูลผู้ใช้
                 const userData = {
                     name: 'CAT',
-                    credit: 1250.50
+                    credit: 1250.50,
+                    email: 'admin@example.com',
+                    phone: '086-123-4567'
                 };
 
-                // เก็บข้อมูลใน localStorage (ในการใช้งานจริงควรใช้ JWT หรือ session)
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('user', JSON.stringify(userData));
-
-                // เรียกใช้ callback ถ้ามี
-                if (onLoginSuccess) {
-                    onLoginSuccess(userData);
-                }
-
-                // Redirect ไปหน้าแรก
+                login(userData); // ใช้ login function จาก context
                 router.push('/');
 
             } else if (username === 'user' && password === '123456') {
-                // จำลองผู้ใช้คนที่ 2
                 const userData = {
                     name: 'USER01',
-                    credit: 500.00
+                    credit: 500.00,
+                    email: 'user01@example.com',
+                    phone: '087-765-4321'
                 };
 
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('user', JSON.stringify(userData));
-
-                if (onLoginSuccess) {
-                    onLoginSuccess(userData);
-                }
-
+                login(userData);
                 router.push('/');
 
             } else {

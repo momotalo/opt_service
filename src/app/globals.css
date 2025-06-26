@@ -2,7 +2,7 @@
 
 /* Navbar Component */
 .trapezoid-gradient {
-  background: linear-gradient(to right, #004D66 40%, #003FFF 60%);
+  background: linear-gradient(135deg, #004d66 10%, #003fff 90%);
   clip-path: polygon(40px 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
