@@ -1,22 +1,88 @@
 'use client'
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@components/Navbar"
-// import CustomButton from "@components/CustomButton"
-import HeroBackground from "@components/HeroBackground";
-import { FaMobileAlt, FaGamepad, FaCreditCard } from "react-icons/fa";
 import Footer from "@components/Footer";
+import HeroBackground from "@components/HeroBackground";
+import Sidebar from "@components/SIdebar";
+import { FaMobileAlt, FaGamepad, FaCreditCard } from "react-icons/fa";
 import { phoneNumbers, chunkArray, apps, socialApps } from '@data/constants';
+
+interface User {
+  name: string;
+  credit: number;
+  avatar?: string;
+}
 
 export default function Home() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<User>({ name: 'CAT', credit: 0 });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // ฟังก์ชันสำหรับแบ่งเบอร์โทรศัพท์เป็นคอลัมน์
   const columns = chunkArray(phoneNumbers, 4);
 
-  return (
-    <div>
-      <Navbar />
+  // ตรวจสอบสถานะการเข้าสู่ระบบจาก localStorage
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      const userData = localStorage.getItem('user');
 
-      {/* Background Section */}
+      if (loggedIn && userData) {
+        setIsLoggedIn(true);
+        setUser(JSON.parse(userData));
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  const handleToggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleCloseSidebar = () => {
+    setSidebarOpen(false);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUser({ name: 'CAT', credit: 0 });
+    setSidebarOpen(false);
+  };
+
+  return (
+    <div className="relative">
+
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        user={user}
+        onToggleSidebar={handleToggleSidebar}
+      />
+
+      {/* Sidebar Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-[#fff]/10 bg-opacity-50 backdrop-blur-sm z-40"
+          onClick={handleCloseSidebar}
+        />
+      )}
+
+      {/* Sidebar */}
+      <div className={`fixed top-0 right-0 h-full z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+        <Sidebar
+          className="h-full"
+          user={user}
+          onLogout={handleLogout}
+          onCloseSidebar={handleCloseSidebar}
+        />
+      </div>
+
+
+      {/* Hero Background Section */}
       <HeroBackground
         backgroundUrl="/images/OTP.svg"
         className="mb-4"

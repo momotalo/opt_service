@@ -16,19 +16,19 @@ const HeroBackground: React.FC<HeroBackgroundProps> = ({
 
     return (
         <div
-            className={`relative h-[calc(100vh-60px)] overflow-hidden ${className}`}
+            className={`relative h-[80vh] overflow-hidden ${className}`} // h-[calc(100vh-60px)]
         >
             {/* Background image with opacity */}
             <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+                className="absolute inset-0 bg-cover bg-[center_30%] bg-no-repeat"
                 style={{ backgroundImage: `url(${backgroundUrl})` }}
             />
 
             {/* Dark overlay (optional) */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/75 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/90 to-transparent" />
 
             {/* Content */}
-            <div className="relative z-10 h-[calc(100vh-60px)]">
+            <div className="relative z-10 h-[80vh]">
                 {children}
             </div>
         </div>

@@ -7,36 +7,59 @@ import { usePathname } from 'next/navigation';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const navItems = [
-    { label: 'แดชบอร์ด', href: '/' },
+    { label: 'หน้าแรก', href: '/' },
     { label: 'OTP', href: '/otp' },
     { label: 'ผู้ติดตาม', href: '/followers' },
-    { label: 'เติมเงิน', href: '/topup' },
+    { label: 'เติมเกม', href: '/topup' },
     { label: 'บัตรเงินสด', href: '/cash-card' },
 ];
 
-export default function Navbar() {
+interface User {
+    name: string;
+    credit: number;
+    avatar?: string;
+}
+
+interface NavbarProps {
+    isLoggedIn?: boolean;
+    user?: User;
+    onToggleSidebar?: () => void;
+}
+
+export default function Navbar({
+    isLoggedIn = false,
+    user = { name: 'CAT', credit: 0 },
+    onToggleSidebar
+}: NavbarProps) {
     const [menuOpen, setMenuOpen] = useState(false);
     const pathname = usePathname();
 
+    const handleHamburgerClick = () => {
+        if (onToggleSidebar) {
+            onToggleSidebar();
+        }
+        setMenuOpen(false);
+    };
+
     return (
-        <nav className="bg-[#0E345B] text-white pl-4 h-[60px] flex items-center justify-between shadow-md relative z-50">
+        <nav className="relative flex items-center justify-between h-[60px] pl-6 text-[#fff] bg-[#0E345B] shadow-md z-50">
             {/* Logo */}
-            <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
                 <Image
                     src="/images/logo.svg"
                     alt="R-OTP24HR Logo"
                     width={40}
                     height={40}
-                    className="p-1 rounded-xl bg-white"
+                    className="p-1 rounded-xl bg-[#fff]"
                 />
                 <div className="leading-tight">
                     <div className="text-sm font-semibold">R-OTP24HR.COM</div>
                     <div className="text-xs text-gray-300">บริการขาย OTP เริ่มต้น</div>
                 </div>
-            </div>
+            </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex gap-6 text-sm font-medium">
+            <div className="hidden md:flex gap-8 text-sm font-medium">
                 {navItems.map((item) => (
                     <Link
                         key={item.href}
@@ -51,23 +74,68 @@ export default function Navbar() {
                 ))}
             </div>
 
-            {/* Login & Register Buttons */}
-            <div className="hidden md:flex trapezoid-gradient items-center gap-3 px-6 pl-8 h-[60px] relative">
-                <Link
-                    href="/login"
-                    className="bg-white text-[#003366] px-4 py-1.5 rounded-full text-sm font-semibold hover:opacity-90"
-                >
-                    เข้าสู่ระบบ
-                </Link>
-                <Link
-                    href="/register"
-                    className="bg-[#0E345B] text-[#E0E0E0] px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-[#0066ee]"
-                >
-                    สมัครสมาชิก
-                </Link>
-            </div>
+            {/* Right Section - Auth or Profile */}
+            {!isLoggedIn ? (
+                // Before Login - Show Login/Register Buttons
+                <div className="hidden md:flex relative justify-center items-center trapezoid-gradient gap-3 w-[320px] h-[60px] pl-6">
+                    <Link
+                        href="/login"
+                        className="bg-white text-[#003366] px-4 py-1.5 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
+                    >
+                        เข้าสู่ระบบ
+                    </Link>
+                    <Link
+                        href="/register"
+                        className="bg-[#0E345B] text-[#E0E0E0] px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-[#0066ee] transition-colors"
+                    >
+                        สมัครสมาชิก
+                    </Link>
+                </div>
+            ) : (
+                // After Login - Show Profile and Hamburger Menu
+                <div className="hidden md:flex items-center gap-4 pr-6">
+                    {/* Profile Section with Link */}
+                    <Link
+                        href="/profile"
+                        className="flex items-center gap-3 hover:bg-blue-700/50 p-2 rounded-lg transition-colors group"
+                    >
+                        <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                            {user.avatar ? (
+                                <Image
+                                    src={user.avatar}
+                                    alt="Profile"
+                                    width={40}
+                                    height={40}
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <div className="w-full h-full bg-gray-400 flex items-center justify-center text-gray-600 font-semibold text-sm">
+                                    {user.name.charAt(0)}
+                                </div>
+                            )}
+                        </div>
+                        <div className="text-right">
+                            <div className="text-sm font-semibold text-white group-hover:text-blue-100 transition-colors">
+                                {user.name}
+                            </div>
+                            <div className="text-xs text-blue-200 group-hover:text-blue-100 transition-colors">
+                                ฿{user.credit.toFixed(2)} เครดิต
+                            </div>
+                        </div>
+                    </Link>
 
-            {/* Hamburger Icon (Mobile) */}
+                    {/* Hamburger Menu */}
+                    <button
+                        onClick={handleHamburgerClick}
+                        className="p-2 hover:bg-blue-700/50 rounded-lg transition-colors"
+                        aria-label="Toggle Sidebar"
+                    >
+                        <FaBars size={20} />
+                    </button>
+                </div>
+            )}
+
+            {/* Mobile Hamburger Icon */}
             <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="md:hidden p-2 z-50"
@@ -83,7 +151,7 @@ export default function Navbar() {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`text-sm font-medium ${pathname === item.href
+                            className={`text-sm font-medium transition-colors ${pathname === item.href
                                 ? 'text-white'
                                 : 'text-gray-300 hover:text-white'
                                 }`}
@@ -93,23 +161,64 @@ export default function Navbar() {
                         </Link>
                     ))}
 
-                    {/* Login & Register Buttons */}
-                    <div className="flex flex-col gap-2 mt-4">
-                        <Link
-                            href="/login"
-                            className="bg-white text-[#003366] px-4 py-2 rounded-full text-sm font-semibold text-center hover:opacity-90"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            เข้าสู่ระบบ
-                        </Link>
-                        <Link
-                            href="/register"
-                            className="bg-[#0E345B] border border-white text-white px-4 py-2 rounded-full text-sm font-semibold text-center hover:bg-[#0066ee]"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            สมัครสมาชิก
-                        </Link>
-                    </div>
+                    {!isLoggedIn ? (
+                        // Mobile Login & Register Buttons
+                        <div className="flex flex-col gap-2 mt-4">
+                            <Link
+                                href="/login"
+                                className="bg-white text-[#003366] px-4 py-2 rounded-full text-sm font-semibold text-center hover:opacity-90 transition-opacity"
+                                onClick={() => setMenuOpen(false)}
+                            >
+                                เข้าสู่ระบบ
+                            </Link>
+                            <Link
+                                href="/register"
+                                className="bg-[#0E345B] border border-white text-white px-4 py-2 rounded-full text-sm font-semibold text-center hover:bg-[#0066ee] transition-colors"
+                                onClick={() => setMenuOpen(false)}
+                            >
+                                สมัครสมาชิก
+                            </Link>
+                        </div>
+                    ) : (
+                        // Mobile Profile Section
+                        <div className="mt-4 pt-4 border-t border-blue-700/50">
+                            <Link
+                                href="/profile"
+                                className="flex items-center gap-3 hover:bg-blue-700/50 p-2 rounded-lg transition-colors"
+                                onClick={() => setMenuOpen(false)}
+                            >
+                                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                                    {user.avatar ? (
+                                        <Image
+                                            src={user.avatar}
+                                            alt="Profile"
+                                            width={40}
+                                            height={40}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-gray-400 flex items-center justify-center text-gray-600 font-semibold text-sm">
+                                            {user.name.charAt(0)}
+                                        </div>
+                                    )}
+                                </div>
+                                <div>
+                                    <div className="text-sm font-semibold text-white">{user.name}</div>
+                                    <div className="text-xs text-blue-200">฿{user.credit.toFixed(2)} เครดิต</div>
+                                </div>
+                            </Link>
+
+                            <button
+                                onClick={() => {
+                                    handleHamburgerClick();
+                                    setMenuOpen(false);
+                                }}
+                                className="w-full mt-2 bg-blue-600/50 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition-colors text-center text-sm"
+                            >
+                                เมนูหลัก
+                            </button>
+                        </div>
+                    )}
                 </div>
             )}
         </nav>

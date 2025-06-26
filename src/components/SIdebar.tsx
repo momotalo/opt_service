@@ -1,13 +1,14 @@
 import React, { FC, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
     HiOutlineViewGrid,
     HiOutlineInformationCircle,
     HiOutlineDocumentText,
     HiOutlineBell,
-    HiOutlineCog
+    HiOutlineCog,
+    HiOutlineLogout
 } from 'react-icons/hi';
 import { HiChevronUp, HiChevronDown } from 'react-icons/hi2';
 
@@ -30,14 +31,30 @@ interface MenuItem {
     subItems?: SubMenuItem[];
 }
 
-interface SidebarProps {
-    className?: string;
-    currentPath?: string; // เพิ่ม optional prop สำหรับ current path
+interface User {
+    name: string;
+    credit: number;
+    avatar?: string;
 }
 
-const Sidebar: FC<SidebarProps> = ({ className = '' }) => {
+interface SidebarProps {
+    className?: string;
+    currentPath?: string;
+    user?: User;
+    onLogout?: () => void;
+    onCloseSidebar?: () => void;
+}
+
+const Sidebar: FC<SidebarProps> = ({
+    className = '',
+    user = { name: 'CAT', credit: 0 },
+    onLogout,
+    onCloseSidebar
+}) => {
     const pathname = usePathname();
+    const router = useRouter();
     const [openDropdowns, setOpenDropdowns] = useState<string[]>([]);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     // ฟังก์ชันสำหรับ toggle dropdown menu
     const toggleDropdown = (menuId: string) => {
@@ -74,19 +91,37 @@ const Sidebar: FC<SidebarProps> = ({ className = '' }) => {
         return Boolean(item.subItems && item.subItems.length > 0);
     };
 
-    // ฟังก์ชันสำหรับ toggle menu
-    // const toggleMenu = (menuId: string) => {
-    //     setExpandedMenus(prev =>
-    //         prev.includes(menuId)
-    //             ? prev.filter(id => id !== menuId)
-    //             : [...prev, menuId]
-    //     );
-    // };
+    // ฟังก์ชันสำหรับออกจากระบบ
+    const handleLogout = async () => {
+        setIsLoggingOut(true);
 
-    // // ตรวจสอบว่าเมนูถูก expand หรือไม่
-    // const isMenuExpanded = (menuId: string): boolean => {
-    //     return expandedMenus.includes(menuId);
-    // };
+        try {
+            // จำลองการ logout (เช่น เรียก API)
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            // ลบข้อมูลจาก localStorage
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('user');
+
+            // เรียกใช้ callback ถ้ามี
+            if (onLogout) {
+                onLogout();
+            }
+
+            // ปิด sidebar
+            if (onCloseSidebar) {
+                onCloseSidebar();
+            }
+
+            // redirect ไปหน้าแรก
+            router.push('/');
+
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            setIsLoggingOut(false);
+        }
+    };
 
     const menuItems: MenuItem[] = [
         {
@@ -152,39 +187,39 @@ const Sidebar: FC<SidebarProps> = ({ className = '' }) => {
             <div className="p-6">
                 <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                        <Image
-                            src="/api/placeholder/48/48"
-                            alt="Profile"
-                            width={48}
-                            height={48}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                                target.nextElementSibling?.classList.remove('hidden');
-                            }}
-                        />
-                        <div className="hidden w-full h-full bg-gray-400 md:flex items-center justify-center text-gray-600 font-semibold">
-                            CAT
-                        </div>
+                        {user.avatar ? (
+                            <Image
+                                src={user.avatar}
+                                alt="Profile"
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <div className="w-full h-full bg-gray-400 flex items-center justify-center text-gray-600 font-semibold">
+                                {user.name.charAt(0)}
+                            </div>
+                        )}
                     </div>
                     <div>
-                        <h3 className="font-semibold text-lg">CAT</h3>
-                        <p className="text-blue-200 text-sm">฿0.00 เครดิต</p>
+                        <h3 className="font-semibold text-lg">{user.name}</h3>
+                        <p className="text-blue-200 text-sm">฿{user.credit.toFixed(2)} เครดิต</p>
                     </div>
                 </div>
 
                 {/* Profile Action Buttons */}
                 <div className="flex space-x-2 mt-4">
                     <Link
-                        href="/"
+                        href="/profile"
                         className="flex-1 bg-[#294162] hover:bg-[#335071] text-white py-2 px-3 rounded-full text-sm transition-colors text-center"
+                        onClick={onCloseSidebar}
                     >
                         สมาชิกทั่วไป
                     </Link>
                     <Link
                         href="/topup"
                         className="flex-1 bg-[#294162] hover:bg-[#335071] text-white py-2 px-3 rounded-full text-sm transition-colors text-center"
+                        onClick={onCloseSidebar}
                     >
                         เติมเครดิต
                     </Link>
@@ -232,6 +267,7 @@ const Sidebar: FC<SidebarProps> = ({ className = '' }) => {
                                             ? 'bg-blue-600/30 text-white border-l-4 border-blue-400'
                                             : 'hover:bg-blue-700/50 text-blue-100'
                                             }`}
+                                        onClick={onCloseSidebar}
                                     >
                                         <div className="flex items-center space-x-3">
                                             <span className={`w-5 h-5 ${isActive ? 'text-blue-300' : item.iconColor}`}>
@@ -258,6 +294,7 @@ const Sidebar: FC<SidebarProps> = ({ className = '' }) => {
                                                             ? 'bg-blue-500/40 text-white font-medium border-l-2 border-blue-300'
                                                             : 'text-blue-200 hover:bg-blue-700/30 hover:text-white'
                                                             }`}
+                                                        onClick={onCloseSidebar}
                                                     >
                                                         <div className="flex items-center space-x-2">
                                                             {subItem.icon && (
@@ -281,12 +318,26 @@ const Sidebar: FC<SidebarProps> = ({ className = '' }) => {
 
             {/* Logout Button */}
             <div className="p-6 border-t border-blue-700/50">
-                <Link
-                    href="/logout"
-                    className="block w-full bg-red-600/80 hover:bg-red-600 text-white py-3 px-4 rounded-lg transition-colors text-center font-medium"
+                <button
+                    onClick={handleLogout}
+                    disabled={isLoggingOut}
+                    className={`block w-full py-3 px-4 rounded-lg transition-all duration-200 text-center font-medium flex items-center justify-center gap-2 ${isLoggingOut
+                        ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
+                        : 'bg-red-600/80 hover:bg-red-600 text-white hover:shadow-lg transform hover:-translate-y-0.5'
+                        }`}
                 >
-                    ออกจากระบบ
-                </Link>
+                    {isLoggingOut ? (
+                        <>
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            กำลังออกจากระบบ...
+                        </>
+                    ) : (
+                        <>
+                            <HiOutlineLogout className="w-5 h-5" />
+                            ออกจากระบบ
+                        </>
+                    )}
+                </button>
             </div>
         </div>
     );
