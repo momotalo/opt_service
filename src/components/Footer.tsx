@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     return (
         <footer className="mt-12 bg-gradient-to-r from-[#3D78C5] to-[#1D3A5F] text-white relative">
             {/* Top warning banner */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <div className="absolute w-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                 <div className="bg-white py-4 px-6 rounded-2xl shadow-lg border border-gray-200">
                     <div className="flex items-center justify-center space-x-4">
                         {/* Left Image */}

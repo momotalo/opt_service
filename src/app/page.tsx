@@ -1,10 +1,6 @@
 'use client'
-// import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import Navbar from "@components/Navbar"
-// import Sidebar from "@components/Sidebar";
-import Footer from "@components/Footer";
 import AppLayout from "@components/AppLayout";
 import HeroBackground from "@components/HeroBackground";
 import { FaMobileAlt, FaGamepad, FaCreditCard } from "react-icons/fa";
@@ -580,9 +576,6 @@ export default function Home() {
 
         </div>
       </div>
-
-      {/* Footer */}
-      <Footer />
 
     </AppLayout>
   );

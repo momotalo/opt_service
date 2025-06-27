@@ -1,6 +1,5 @@
-import Footer from '@components/Footer'
+import AppLayout from '@components/AppLayout'
 import HeroBackground from '@components/HeroBackground'
-import Navbar from '@components/Navbar'
 import GameCard from '@components/GameCard'
 import React from 'react'
 
@@ -50,11 +49,10 @@ const GameTopUpPage = () => {
     ];
 
     return (
-        <div className='bg-[#F1F7FE]'>
-            <Navbar />
+        <AppLayout className='bg-[#F1F7FE]'>
 
             <HeroBackground
-                backgroundUrl="/images/game.jpg"
+                backgroundUrl="/images/bg-game.jpg"
                 className="mb-4"
             >
                 <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] px-4 text-center">
@@ -100,9 +98,7 @@ const GameTopUpPage = () => {
                 </div>
             </div>
 
-            {/* Footer Section */}
-            <Footer />
-        </div>
+        </AppLayout>
     )
 }
 

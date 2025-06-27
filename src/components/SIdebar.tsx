@@ -321,7 +321,7 @@ const Sidebar: FC<SidebarProps> = ({
                 <button
                     onClick={handleLogout}
                     disabled={isLoggingOut}
-                    className={`block w-full py-3 px-4 rounded-lg transition-all duration-200 text-center font-medium flex items-center justify-center gap-2 ${isLoggingOut
+                    className={`w-full py-3 px-4 rounded-lg transition-all duration-200 text-center font-medium flex items-center justify-center gap-2 ${isLoggingOut
                         ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
                         : 'bg-red-600/80 hover:bg-red-600 text-white hover:shadow-lg transform hover:-translate-y-0.5'
                         }`}

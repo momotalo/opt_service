@@ -3,98 +3,61 @@ import React, { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-// import {
-//     FiUser,
-//     FiSettings,
-//     FiFileText,
-//     FiShoppingCart,
-//     FiShare2,
-//     FiUserPlus,
-//     FiLogOut
-// } from 'react-icons/fi';
-// import {
-//     HiOutlineGlobeAlt,
-//     HiOutlineCode
-// } from 'react-icons/hi';
+import { useAuth } from '@hooks/useAuth';
 
 interface ProfileMenuItem {
     id: string;
     label: string;
     href: string;
-    // icon: React.ReactNode;
     isActive?: boolean;
 }
 
 interface ProfileSidebarProps {
     className?: string;
-    user?: {
-        name: string;
-        email: string;
-        credits: number;
-        avatar?: string;
-    };
 }
-const ProfileSidebar: FC<ProfileSidebarProps> = (
-    {
-        className = '',
-        user = {
-            name: 'CAT',
-            email: 'min260845@gmail.com',
-            credits: 0.00,
-            avatar: '/api/placeholder/40/40'
-        }
-    }
-) => {
+
+const ProfileSidebar: FC<ProfileSidebarProps> = ({ className = '' }) => {
     const pathname = usePathname();
+    const { user, logout } = useAuth();
+
+    // ใช้ข้อมูลจาก useAuth หรือข้อมูล default
+    const profileData = {
+        name: user?.name || 'CAT',
+        email: user?.email || 'min260845@gmail.com',
+        credits: user?.credit || 0.00,
+        avatar: user?.avatar || '/api/placeholder/40/40'
+    };
 
     const menuItems: ProfileMenuItem[] = [
         {
             id: 'profile',
             label: 'ข้อมูลผู้ใช้',
             href: '/profile',
-            // icon: <FiUser className="w-4 h-4" />
         },
         {
             id: 'settings',
-            label: 'ตั้งค่าส่วนตัว',
+            label: 'ประวัติการหมด',
             href: '/profile/settings',
-            // icon: <FiSettings className="w-4 h-4" />
         },
         {
             id: 'history',
-            label: 'ประวัติการสั่งซื้อ',
+            label: 'สิงค่าซึ่งเพื่อน',
             href: '/profile/history',
-            // icon: <FiFileText className="w-4 h-4" />
-        },
-        {
-            id: 'orders',
-            label: 'สินค้าเข้าเพื่อน',
-            href: '/profile/orders',
-            // icon: <FiShoppingCart className="w-4 h-4" />
         },
         {
             id: 'webhook',
             label: 'Webhook LIKE',
             href: '/profile/webhook',
-            // icon: <HiOutlineGlobeAlt className="w-4 h-4" />
         },
         {
             id: 'api',
             label: 'เชื่อมฟรี API',
             href: '/profile/api',
-            // icon: <HiOutlineCode className="w-4 h-4" />
         },
         {
             id: 'affiliate',
             label: 'ร่วมกันรวย',
             href: '/profile/affiliate',
-            // icon: <FiUserPlus className="w-4 h-4" />
-        },
-        {
-            id: 'logout',
-            label: 'ออกจากระบบ',
-            href: '/',
-            // icon: <FiLogOut className="w-4 h-4" />
         }
     ];
 
@@ -102,41 +65,45 @@ const ProfileSidebar: FC<ProfileSidebarProps> = (
         return pathname === href;
     };
 
+    const handleLogout = () => {
+        logout();
+    };
+
     return (
-        <div className={`w-[260px] h-[600px] py-4 text-white bg-[#1e3a5f] rounded-l-2xl ${className}`}>
+        <div className={`w-[260px] bg-[#1e3a5f] rounded-l-2xl overflow-hidden ${className}`}>
             {/* Header Section */}
-            <div className="px-4 py-3">
-                <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-300 flex-shrink-0">
+            <div className="px-6 py-6 bg-[#1e3a5f]">
+                <div className="flex items-center space-x-3 mb-4">
+                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300 flex-shrink-0">
                         <Image
-                            src={user.avatar || '/api/placeholder/40/40'}
-                            alt={user.name}
-                            width={40}
-                            height={40}
+                            src={profileData.avatar}
+                            alt={profileData.name}
+                            width={48}
+                            height={48}
                             className="w-full h-full object-cover"
                         />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-sm text-white truncate">
-                            {user.name}
+                        <h3 className="font-bold text-base text-white truncate">
+                            {profileData.name}
                         </h3>
-                        <p className="text-xs text-blue-200 truncate">
-                            ฿{user.credits.toFixed(2)} เครดิต
+                        <p className="text-sm text-blue-200 truncate">
+                            ฿{profileData.credits.toFixed(2)} เครดิต
                         </p>
                     </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex space-x-1 mt-3">
+                <div className="flex space-x-2">
                     <Link
                         href="/profile"
-                        className="flex-1 bg-[#fff]/10 text-white py-1.5 px-2 rounded-full text-xs text-center transition-colors"
+                        className="flex-1 bg-white/10 hover:bg-white/20 text-white py-2 px-3 rounded-full text-xs text-center transition-colors"
                     >
                         สมาชิกทั่วไป
                     </Link>
                     <Link
                         href="/topup"
-                        className="flex-1 bg-[#fff]/30 text-white py-1.5 px-2 rounded-full text-xs text-center transition-colors"
+                        className="flex-1 bg-white/20 hover:bg-white/30 text-white py-2 px-3 rounded-full text-xs text-center transition-colors"
                     >
                         เติมเครดิต
                     </Link>
@@ -145,7 +112,7 @@ const ProfileSidebar: FC<ProfileSidebarProps> = (
 
             {/* Menu Items */}
             <nav className="px-4 py-2">
-                <ul className="space-y-0">
+                <ul className="space-y-1">
                     {menuItems.map((item) => {
                         const isActive = isActiveMenu(item.href);
 
@@ -154,16 +121,13 @@ const ProfileSidebar: FC<ProfileSidebarProps> = (
                                 <Link
                                     href={item.href}
                                     className={`
-                                        w-full flex items-center space-x-3 px-4 py-4 text-base rounded-2xl transition-colors duration-200
+                                        w-full flex items-center px-4 py-3 text-sm rounded-xl transition-all duration-200
                                         ${isActive
-                                            ? 'bg-blue-600/40 text-[#fff] border-r-2 border-blue-400'
-                                            : 'text-[#fff]/60 hover:bg-[#fff]/30 hover:text-[#fff]'
+                                            ? 'bg-blue-600/30 text-white font-medium border-r-2 border-blue-400'
+                                            : 'text-white/70 hover:bg-white/10 hover:text-white'
                                         }
                                     `}
                                 >
-                                    {/* <span className={`${isActive ? 'text-blue-200' : 'text-blue-300'}`}>
-                                        {item.icon}
-                                    </span> */}
                                     <span className="flex-1 truncate">
                                         {item.label}
                                     </span>
@@ -172,17 +136,19 @@ const ProfileSidebar: FC<ProfileSidebarProps> = (
                         );
                     })}
                 </ul>
-                {/* <Link
-                    href="/logout"
-                    className="w-full flex items-center space-x-3 px-3 py-2 bg-red-600/80 hover:bg-red-600 rounded transition-colors duration-200 text-sm"
-                >
-                    <FiLogOut className="w-4 h-4" />
-                    <span>ออกจากระบบ</span>
-                </Link> */}
+
+                {/* Logout Button */}
+                <div className="mt-4 pt-4 border-t border-white/10">
+                    <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center px-4 py-3 text-sm text-red-300 hover:text-red-200 hover:bg-red-600/10 rounded-xl transition-all duration-200"
+                    >
+                        <span className="flex-1 text-left">ออกจากระบบ</span>
+                    </button>
+                </div>
             </nav>
-
         </div>
-    )
-}
+    );
+};
 
-export default ProfileSidebar
+export default ProfileSidebar;

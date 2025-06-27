@@ -1,7 +1,6 @@
 import React from 'react'
+import AppLayout from '@components/AppLayout';
 import HeroBackground from '@components/HeroBackground'
-import Navbar from '@components/Navbar'
-import Footer from '@components/Footer'
 
 const socialApps = [
     { id: 'facebook', name: 'Facebook' },
@@ -18,11 +17,9 @@ const socialApps = [
 
 const FollowersPage = () => {
     return (
-        <div className='bg-[#F1F7FE]'>
-            <Navbar />
-
+        <AppLayout className='bg-[#F1F7FE]'>
             {/* Hero Background */}
-            <HeroBackground backgroundUrl="/images/follow.jpg" className="mb-4">
+            <HeroBackground backgroundUrl="/images/bg-follow.jpg" className="mb-4">
                 <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] px-4 text-center">
                     <h1 className='p-4 text-6xl text-[#1D3A5F] font-bold rounded-3xl bg-[#fff]'>บริการเพิ่มผู้ติดตามโซเชียล</h1>
                     <p className="px-6 py-1 text-lg text-[#fff] bg-[#0E345B] rounded-b-4xl">
@@ -164,10 +161,7 @@ const FollowersPage = () => {
                 </div>
             </div>
 
-            {/* Footer Section */}
-            <Footer />
-
-        </div>
+        </AppLayout>
     )
 }
 

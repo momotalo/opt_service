@@ -1,8 +1,7 @@
 import React from 'react'
 import HeroBackground from '@components/HeroBackground'
-import Navbar from '@components/Navbar'
+import AppLayout from '@components/AppLayout';
 import CashCard from '@components/CashCard';
-import Footer from '@components/Footer';
 
 const CashCardSalesPage = () => {
 
@@ -58,11 +57,10 @@ const CashCardSalesPage = () => {
     ];
 
     return (
-        <div>
-            <Navbar />
+        <AppLayout>
 
             <HeroBackground
-                backgroundUrl="/images/game.jpg"
+                backgroundUrl="/images/bg-game.jpg"
                 className="mb-4"
             >
                 <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] px-4 text-center">
@@ -96,9 +94,7 @@ const CashCardSalesPage = () => {
                 </div>
             </div>
 
-            {/* Footer Section */}
-            <Footer />
-        </div>
+        </AppLayout>
     )
 }
 
