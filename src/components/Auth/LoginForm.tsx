@@ -4,6 +4,7 @@ import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@hooks/useAuth';
+import { FaGoogle } from 'react-icons/fa';
 
 const LoginForm: FC = () => {
     const [username, setUsername] = useState('');
@@ -11,7 +12,7 @@ const LoginForm: FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const { login } = useAuth(); // ใช้ hook แทน props
+    const { login } = useAuth();
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -20,10 +21,8 @@ const LoginForm: FC = () => {
         setError('');
 
         try {
-            // Simulate API call delay
             await new Promise(resolve => setTimeout(resolve, 1000));
 
-            // Simple validation for demo
             if (username === 'admin' && password === '123456') {
                 const userData = {
                     name: 'CAT',
@@ -31,10 +30,8 @@ const LoginForm: FC = () => {
                     email: 'admin@example.com',
                     phone: '086-123-4567'
                 };
-
-                login(userData); // ใช้ login function จาก context
+                login(userData);
                 router.push('/');
-
             } else if (username === 'user' && password === '123456') {
                 const userData = {
                     name: 'USER01',
@@ -42,57 +39,50 @@ const LoginForm: FC = () => {
                     email: 'user01@example.com',
                     phone: '087-765-4321'
                 };
-
                 login(userData);
                 router.push('/');
-
             } else {
                 setError('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
             }
-        } catch (err) {
+        } catch (error) {
             setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
         } finally {
             setIsLoading(false);
         }
     };
 
-    return (
-        <div className="px-8 lg:px-8 flex flex-col justify-between h-full bg-white">
-            {/* Header */}
-            <h1 className="text-4xl font-bold text-[#1D3A5F] mb-4" style={{
-                WebkitTextStroke: '2px white',
-                textShadow: '2px 2px 4px black'
-            }}>R-OTP</h1>
-            <div className="flex justify-center items-center">
-                <h2 className="text-2xl font-semibold text-gray-800">เข้าสู่ระบบ</h2>
-            </div>
+    const handleGoogleLogin = () => {
+        // Handle Google login
+        console.log('Google login clicked');
+    };
 
-            {/* Demo Accounts Info */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                <h3 className="text-sm font-semibold text-blue-800 mb-2">บัญชีทดสอบ:</h3>
-                <div className="text-xs text-blue-600 space-y-1">
-                    <div>Admin: username = <span className="font-mono">admin</span>, password = <span className="font-mono">123456</span></div>
-                    <div>User: username = <span className="font-mono">user</span>, password = <span className="font-mono">123456</span></div>
-                </div>
+    return (
+        <div className="flex flex-col justify-center h-full px-24 bg-white/70 backdrop-blur-sm">
+            {/* Header */}
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">เข้าสู่ระบบ</h1>
             </div>
 
             {/* Error Message */}
             {error && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-6">
                     <p className="text-red-600 text-sm">{error}</p>
                 </div>
             )}
 
             {/* Login Form */}
-            <form onSubmit={handleSubmit} className="space-y-6 pb-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Username Field */}
                 <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        ชื่อผู้ใช้
+                    </label>
                     <input
                         type="text"
-                        placeholder="ชื่อผู้ใช้หรืออีเมล"
+                        placeholder="ชื่อผู้ใช้ของคุณ"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400 text-base transition-all bg-white"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400 transition-all"
                         required
                         disabled={isLoading}
                     />
@@ -100,12 +90,15 @@ const LoginForm: FC = () => {
 
                 {/* Password Field */}
                 <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        รหัสผ่าน
+                    </label>
                     <input
                         type="password"
                         placeholder="รหัสผ่าน"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400 text-base transition-all bg-white"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400 transition-all"
                         required
                         disabled={isLoading}
                     />
@@ -115,7 +108,7 @@ const LoginForm: FC = () => {
                 <div className="flex justify-end">
                     <Link
                         href="/forgot-password"
-                        className="text-red-500 text-sm hover:text-red-600 hover:underline transition-colors"
+                        className="text-blue-600 text-sm hover:text-blue-700 hover:underline transition-colors"
                     >
                         ลืมรหัสผ่าน?
                     </Link>
@@ -125,9 +118,9 @@ const LoginForm: FC = () => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className={`w-full font-semibold py-4 px-4 rounded-full transition-all duration-200 shadow-lg text-base ${isLoading
+                    className={`w-full font-semibold py-3 px-4 rounded-full transition-all duration-200 text-base ${isLoading
                         ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white hover:shadow-xl transform hover:-translate-y-0.5'
+                        : 'bg-[#4F65D3] hover:from-blue-600 hover:to-blue-700 text-white hover:shadow-lg'
                         }`}
                 >
                     {isLoading ? (
@@ -140,17 +133,39 @@ const LoginForm: FC = () => {
                     )}
                 </button>
 
-                {/* Footer Links */}
-                <div className="text-center pt-4">
-                    <div className="flex items-center justify-center space-x-2 text-sm">
-                        <span className="text-gray-600">ยังไม่มีบัญชีหรือ?</span>
-                        <Link
-                            href="/register"
-                            className="text-red-500 font-medium hover:text-red-600 hover:underline transition-colors"
-                        >
-                            สมัครสมาชิก
-                        </Link>
+                {/* Divider */}
+                <div className="relative flex items-center justify-center my-6">
+                    <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-gray-300"></div>
                     </div>
+                    <div className="relative px-2 bg-[#FFF] text-sm text-gray-500">
+                        or
+                    </div>
+                </div>
+
+                {/* Google Login Button */}
+                <button
+                    type="button"
+                    onClick={handleGoogleLogin}
+                    className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-[#FFF] border border-gray-300 rounded-full font-medium hover:bg-gray-50 transition-colors"
+                >
+                    <FaGoogle className="text-red-500" />
+                </button>
+
+                {/* Footer Links */}
+                <div className="flex justify-between items-center pt-6 text-sm">
+                    <Link
+                        href="/forgot-password"
+                        className="text-gray-600 hover:text-gray-800 transition-colors"
+                    >
+                        ยังไม่ได้เป็นสมาชิกใช่ไหม?
+                    </Link>
+                    <Link
+                        href="/register"
+                        className="text-blue-600 font-medium hover:text-blue-700 transition-colors"
+                    >
+                        สมัครสมาชิก
+                    </Link>
                 </div>
             </form>
         </div>

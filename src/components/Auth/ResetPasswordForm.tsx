@@ -10,13 +10,20 @@ export default function ResetPasswordForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError('');
 
         if (password !== confirmPassword) {
-            alert('รหัสผ่านไม่ตรงกัน');
+            setError('รหัสผ่านไม่ตรงกัน');
+            return;
+        }
+
+        if (password.length < 8) {
+            setError('รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร');
             return;
         }
 
@@ -29,31 +36,31 @@ export default function ResetPasswordForm() {
             // ลบข้อมูลใน localStorage
             localStorage.removeItem('forgot_password_contact');
 
+            // แสดงข้อความสำเร็จและไปหน้า login
             alert('เปลี่ยนรหัสผ่านสำเร็จ');
             router.push('/login');
         } catch (error) {
             console.error('Error resetting password:', error);
+            setError('เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน');
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <div className="p-8 lg:p-12 flex flex-col justify-center h-full bg-white">
+        <div className="flex flex-col justify-center h-full px-24 bg-white/70 backdrop-blur-sm">
             {/* Header */}
-            <div className="text-center mb-8">
-                <h1
-                    className="text-4xl font-bold text-[#1D3A5F] mb-4"
-                    style={{
-                        WebkitTextStroke: '2px white',
-                        textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
-                    }}
-                >
-                    R-OTP
-                </h1>
-                <h2 className="text-2xl font-semibold text-gray-800">ตั้งรหัสผ่านใหม่</h2>
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">ตั้งรหัสผ่านใหม่</h1>
                 <p className="text-gray-600 mt-2">กรุณากรอกรหัสผ่านใหม่ของคุณ</p>
             </div>
+
+            {/* Error Message */}
+            {error && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-6">
+                    <p className="text-red-600 text-sm">{error}</p>
+                </div>
+            )}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -67,15 +74,16 @@ export default function ResetPasswordForm() {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400 transition-all"
                             placeholder="กรอกรหัสผ่านใหม่"
                             required
                             minLength={8}
+                            disabled={isLoading}
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
                         >
                             {showPassword ? (
                                 <IoEyeOff className="h-5 w-5" />
@@ -96,15 +104,16 @@ export default function ResetPasswordForm() {
                             id="confirmPassword"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400 transition-all"
                             placeholder="ยืนยันรหัสผ่านใหม่"
                             required
                             minLength={8}
+                            disabled={isLoading}
                         />
                         <button
                             type="button"
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
                         >
                             {showConfirmPassword ? (
                                 <IoEyeOff className="h-5 w-5" />
@@ -118,9 +127,19 @@ export default function ResetPasswordForm() {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-red-500 text-white py-3 px-4 rounded-lg font-medium hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className={`w-full font-semibold py-3 px-4 rounded-full transition-all duration-200 text-base ${isLoading
+                            ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                            : 'bg-[#4F65D3] hover:bg-blue-700 text-white hover:shadow-lg'
+                        }`}
                 >
-                    {isLoading ? 'กำลังส่ง OTP...' : 'ส่ง OTP'}
+                    {isLoading ? (
+                        <div className="flex items-center justify-center gap-2">
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            กำลังบันทึก...
+                        </div>
+                    ) : (
+                        'บันทึกรหัสผ่าน'
+                    )}
                 </button>
             </form>
         </div>

@@ -1,30 +1,27 @@
 import React from 'react'
-import LoginForm from '@components/LoginForm';
+import LoginForm from '@components/Auth/LoginForm';
 import AuthImageCard from '@components/AuthImageCard';
 
-const Login = () => {
+const LoginPage = () => {
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden p-4 max-w-4xl w-full h-[600px]">
-                <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+        <div className="h-screen bg-[#EDEDED] flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-5xl w-full h-[calc(100vh-2rem)]">
+                <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] h-full">
+                    {/* Left Side - Login Form */}
+                    <LoginForm />
 
+                    {/* Right Side - Auth Image Card */}
                     <AuthImageCard
-                        title="ซิมดัตธุรกิจ R-OTP"
-                        description="บริการซื้อ OTP เริ่มต้นเพียง 10 บาท รับ OTP สำเร็จรูปจากทุก SIM หา"
-                        activeTab="login"
-                        imagePosition="left"
+                        title="ยินดีต้อนรับสู่ R-OTP"
+                        description="ผู้ให้บริการ เบอร์ OTP ขายแอทเคาท์เติมเกมออนไลนโปรดระวังมิจฉาชีพแอบอ้างบัญชีเราเพื่อหลอกให้ผู้อื่นจ่ายค่าสินค้าแทน"
+                        imagePosition="right"
                         imageSrc="/images/login.jpg"
                         imageAlt="Login Background"
                     />
-
-
-                    {/* Right Side - Login Form */}
-                    <LoginForm />
-
                 </div>
             </div>
         </div>
     );
 }
 
-export default Login
+export default LoginPage

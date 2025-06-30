@@ -30,19 +30,10 @@ export default function ForgotPasswordForm() {
     };
 
     return (
-        <div className="p-8 lg:p-12 flex flex-col justify-center h-full bg-white">
+        <div className="flex flex-col justify-center h-full px-24 bg-white/70 backdrop-blur-sm">
             {/* Header */}
-            <div className="text-center mb-8">
-                <h1
-                    className="text-4xl font-bold text-[#1D3A5F] mb-4"
-                    style={{
-                        WebkitTextStroke: '2px white',
-                        textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
-                    }}
-                >
-                    R-OTP
-                </h1>
-                <h2 className="text-2xl font-semibold text-gray-800">ลืมรหัสผ่าน</h2>
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">ลืมรหัสผ่าน</h1>
                 <p className="text-gray-600 mt-2">กรุณากรอกอีเมลหรือเบอร์โทรศัพท์ของคุณ</p>
             </div>
 
@@ -57,18 +48,29 @@ export default function ForgotPasswordForm() {
                         id="emailOrPhone"
                         value={emailOrPhone}
                         onChange={(e) => setEmailOrPhone(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400 transition-all"
                         placeholder="กรอกอีเมลหรือเบอร์โทรศัพท์"
                         required
+                        disabled={isLoading}
                     />
                 </div>
 
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-red-500 text-white py-3 px-4 rounded-lg font-medium hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className={`w-full font-semibold py-3 px-4 rounded-full transition-all duration-200 text-base ${isLoading
+                            ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                            : 'bg-[#4F65D3] hover:bg-blue-700 text-white hover:shadow-lg'
+                        }`}
                 >
-                    {isLoading ? 'กำลังส่ง OTP...' : 'ส่ง OTP'}
+                    {isLoading ? (
+                        <div className="flex items-center justify-center gap-2">
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            กำลังส่ง OTP...
+                        </div>
+                    ) : (
+                        'ส่งรหัสยืนยัน'
+                    )}
                 </button>
             </form>
 
@@ -76,7 +78,7 @@ export default function ForgotPasswordForm() {
             <div className="mt-6 text-center">
                 <Link
                     href="/login"
-                    className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                    className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
                 >
                     กลับไปหน้าเข้าสู่ระบบ
                 </Link>
