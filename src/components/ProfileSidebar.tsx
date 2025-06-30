@@ -35,14 +35,14 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({ className = '' }) => {
             href: '/profile',
         },
         {
-            id: 'settings',
+            id: 'history',
             label: 'ประวัติการหมด',
-            href: '/profile/settings',
+            href: '/profile/history/credit',
         },
         {
-            id: 'history',
-            label: 'สิงค่าซึ่งเพื่อน',
-            href: '/profile/history',
+            id: 'invite',
+            label: 'ลิงค์เชิญเพื่อน',
+            href: '/profile/invite',
         },
         {
             id: 'webhook',
