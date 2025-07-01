@@ -1,5 +1,5 @@
 import ForgotPasswordForm from '@components/Auth/ForgotPasswordForm';
-import AuthImageCard from '@components/AuthImageCard';
+import AuthImageCard from '@components/Auth/AuthImageCard';
 
 export default function ForgotPasswordPage() {
     return (

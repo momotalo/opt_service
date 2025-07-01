@@ -1,7 +1,7 @@
 'use client';
 
 import ResetPasswordForm from '@components/Auth/ResetPasswordForm';
-import AuthImageCard from '@components/AuthImageCard';
+import AuthImageCard from '@components/Auth/AuthImageCard';
 
 export default function ResetPasswordPage() {
     return (

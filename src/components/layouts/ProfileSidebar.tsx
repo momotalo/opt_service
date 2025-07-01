@@ -55,9 +55,9 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({ className = '' }) => {
             href: '/profile/api',
         },
         {
-            id: 'affiliate',
-            label: 'ร่วมกันรวย',
-            href: '/profile/affiliate',
+            id: 'joinUs',
+            label: 'ร่วมกับเรา',
+            href: '/profile/join-us',
         }
     ];
 
@@ -70,9 +70,9 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({ className = '' }) => {
     };
 
     return (
-        <div className={`w-[260px] bg-[#1e3a5f] rounded-l-2xl overflow-hidden ${className}`}>
+        <div className={`w-[260px] bg-[#0E345B] rounded-l-2xl overflow-hidden ${className}`}>
             {/* Header Section */}
-            <div className="px-6 py-6 bg-[#1e3a5f]">
+            <div className="px-6 py-6 bg-[#0E345B]">
                 <div className="flex items-center space-x-3 mb-4">
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300 flex-shrink-0">
                         <Image

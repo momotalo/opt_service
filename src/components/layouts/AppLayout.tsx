@@ -2,9 +2,9 @@
 
 import React, { ReactNode } from 'react';
 import { useAuth } from '@hooks/useAuth';
-import Navbar from '@components/Navbar';
-import Sidebar from '@components/Sidebar';
-import Footer from '@components/Footer';
+import Navbar from '@components/layouts/Navbar';
+import Sidebar from '@components/layouts/Sidebar';
+import Footer from '@components/layouts/Footer';
 
 interface AppLayoutProps {
     children: ReactNode;

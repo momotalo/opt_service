@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import AppLayout from "@components/AppLayout";
-import HeroBackground from "@components/HeroBackground";
-import ProfileSidebar from "@components/ProfileSidebar";
+import AppLayout from "@components/layouts/AppLayout";
+import HeroBackground from "@components/layouts/HeroBackground";
+import ProfileSidebar from "@components/layouts/ProfileSidebar";
 import { useAuth } from '@hooks/useAuth';
 import Link from 'next/link';
 

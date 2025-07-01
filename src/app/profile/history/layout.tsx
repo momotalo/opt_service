@@ -1,9 +1,9 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import AppLayout from '@components/AppLayout';
-import ProfileSidebar from '@components/ProfileSidebar';
-import HeroBackground from '@components/HeroBackground';
+import AppLayout from '@components/layouts/AppLayout';
+import ProfileSidebar from '@components/layouts/ProfileSidebar';
+import HeroBackground from '@components/layouts/HeroBackground';
 import { useRequireAuth } from '@hooks/useAuth';
 
 interface HistoryLayoutProps {

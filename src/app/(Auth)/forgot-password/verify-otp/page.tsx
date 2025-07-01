@@ -1,5 +1,5 @@
 import VerifyOTPForm from '@components/Auth/VerifyOTPForm';
-import AuthImageCard from '@components/AuthImageCard';
+import AuthImageCard from '@components/Auth/AuthImageCard';
 
 export default function VerifyOTPPage() {
     return (

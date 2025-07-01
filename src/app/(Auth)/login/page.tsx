@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginForm from '@components/Auth/LoginForm';
-import AuthImageCard from '@components/AuthImageCard';
+import AuthImageCard from '@components/Auth/AuthImageCard';
 
 const LoginPage = () => {
     return (

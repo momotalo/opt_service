@@ -24,12 +24,12 @@ const AuthImageCard: FC<AuthImageCardProps> = ({
             {/* Character Avatar */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -mt-8">
                 <div className="w-[270px] h-[270px] bg-white rounded-[70px] flex items-center justify-center shadow-2xl">
-                    <div className="relative w-24 h-24 rounded-2xl overflow-hidden">
+                    <div className="relative w-60 h-60 rounded-2xl overflow-hidden">
                         <Image
-                            src={imageSrc} // เปลี่ยนเป็น path ของรูป character ที่ต้องการ
+                            src={imageSrc}
                             alt={imageAlt}
                             fill
-                            className="object-cover object-center"
+                            className="object-cover"
                             sizes="96px"
                         />
                     </div>

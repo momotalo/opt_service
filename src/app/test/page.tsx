@@ -1,6 +1,6 @@
-import HeroBackground from '@components/HeroBackground'
-import Navbar from '@components/Navbar'
-import ProfileSidebar from '@components/ProfileSidebar'
+import HeroBackground from '@components/layouts/HeroBackground'
+import Navbar from '@components/layouts/Navbar'
+import ProfileSidebar from '@components/layouts/ProfileSidebar'
 import React from 'react'
 
 const TestPage = () => {

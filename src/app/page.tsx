@@ -1,8 +1,8 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import AppLayout from "@components/AppLayout";
-import HeroBackground from "@components/HeroBackground";
+import AppLayout from "@components/layouts/AppLayout";
+import HeroBackground from "@components/layouts/HeroBackground";
 import { FaMobileAlt, FaGamepad, FaCreditCard } from "react-icons/fa";
 import { phoneNumbers, chunkArray, apps, socialApps } from '@data/constants';
 

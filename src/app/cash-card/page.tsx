@@ -1,6 +1,6 @@
 import React from 'react'
-import HeroBackground from '@components/HeroBackground'
-import AppLayout from '@components/AppLayout';
+import HeroBackground from '@components/layouts/HeroBackground'
+import AppLayout from '@components/layouts/AppLayout';
 import CashCard from '@components/CashCard';
 
 const CashCardSalesPage = () => {

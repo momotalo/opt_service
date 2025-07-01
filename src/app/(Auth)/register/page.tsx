@@ -1,5 +1,5 @@
 import React from 'react'
-import AuthImageCard from '@components/AuthImageCard'
+import AuthImageCard from '@components/Auth/AuthImageCard'
 import RegisterForm from '@components/Auth/RegisterForm'
 
 const RegisterPage = () => {

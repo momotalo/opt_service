@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react';
-import AppLayout from "@components/AppLayout";
-import HeroBackground from "@components/HeroBackground";
-import ProfileSidebar from "@components/ProfileSidebar";
+import AppLayout from "@components/layouts/AppLayout";
+import HeroBackground from "@components/layouts/HeroBackground";
+import ProfileSidebar from "@components/layouts/ProfileSidebar";
 import Link from 'next/link';
 
 const ChangePasswordPage = () => {
