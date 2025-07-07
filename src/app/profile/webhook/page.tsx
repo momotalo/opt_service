@@ -6,12 +6,13 @@ import ProfileSidebar from '@components/layouts/ProfileSidebar'
 
 import { FaCoins, FaLink, FaKey, FaClock, FaInfoCircle, FaChartBar } from "react-icons/fa";
 import { LuHandCoins } from "react-icons/lu";
+import PageHeader from '@components/profile/PageHeader'
 
 const WebHookLikePage = () => {
     return (
         <AppLayout>
             <HeroBackground
-                backgroundUrl="/images/bg-home.jpg"
+                backgroundUrl="/images/background/bg-home.jpg"
                 className="h-[250px] sm:h-[300px] lg:h-[400px]"
             >
             </HeroBackground>
@@ -20,16 +21,10 @@ const WebHookLikePage = () => {
             <div className="w-[95%] sm:w-[90%] lg:w-[88%] xl:w-[85%] 2xl:w-[80%] max-w-[1400px] mx-auto -mt-16 sm:-mt-20 lg:-mt-26 mb-8 relative z-30 px-2 sm:px-4">
 
                 {/* Header */}
-                <div className="flex flex-col lg:flex-row mb-0">
-                    {/* Left Spacer - hidden on mobile/tablet */}
-                    <div className="hidden lg:block lg:w-[220px] xl:w-[260px]"></div>
-
-                    {/* Header Content */}
-                    <div className="flex-1 py-3 sm:py-4 px-4 sm:px-8 text-center rounded-t-2xl bg-[#FFF]/90 backdrop-blur-sm">
-                        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#000] mb-2 sm:mb-4">Webhook LINE</h1>
-                        <p className="text-sm sm:text-base text-[#000]">หน้าหลัก / <span className='text-[#737373]'>Webhook LINE</span></p>
-                    </div>
-                </div>
+                <PageHeader
+                    title="Webhook LINE"
+                    breadcrumb="Webhook LINE"
+                />
 
                 {/* Content - 2 Columns Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] xl:grid-cols-[260px_1fr] min-h-[600px]">

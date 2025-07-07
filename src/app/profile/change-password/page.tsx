@@ -24,7 +24,7 @@ const ChangePasswordPage = () => {
     return (
         <AppLayout className='bg-[#F1F7FE]'>
             <HeroBackground
-                backgroundUrl="/images/bg-home.jpg"
+                backgroundUrl="/images/background/bg-home.jpg"
                 className="h-[250px] sm:h-[300px] lg:h-[400px]"
             >
             </HeroBackground>
