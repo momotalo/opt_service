@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 interface HeroBackgroundProps {
     backgroundUrl: string;
-    children?: React.ReactNode;
+    title?: string;
+    path?: string;
     className?: string;
-    overlayOpacity?: 'none' | 'light' | 'medium' | 'dark';
+    children?: React.ReactNode;
 }
 
-const HeroBackground: React.FC<HeroBackgroundProps> = ({
+const HeroBackground: FC<HeroBackgroundProps> = ({
     backgroundUrl,
-    children,
+    title,
+    path,
     className = "",
+    children,
 }) => {
 
 
@@ -30,6 +33,11 @@ const HeroBackground: React.FC<HeroBackgroundProps> = ({
             {/* Content */}
             <div className="relative z-10 h-[80vh]">
                 {children}
+                <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] px-4 text-center">
+                    <h1 className='p-4 text-6xl text-[#1D3A5F] font-bold rounded-3xl bg-[#fff]'>{title}</h1>
+                    <p className="px-6 py-1 text-lg text-[#fff] bg-[#0E345B] rounded-b-4xl">
+                        หน้าหลัก / <span className='text-[#737373]'>{path}</span></p>
+                </div>
             </div>
         </div>
 

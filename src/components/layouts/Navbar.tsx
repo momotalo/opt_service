@@ -1,42 +1,34 @@
 'use client';
-
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { useAuth } from '@hooks/useAuth'; // ใช้ของเดิมที่มีอยู่แล้ว
 
 const navItems = [
-    { label: 'หน้าแรก', href: '/' },
+    { label: 'แอคเคาท์', href: '/account' },
     { label: 'OTP', href: '/otp' },
     { label: 'ผู้ติดตาม', href: '/followers' },
     { label: 'เติมเกม', href: '/topup' },
     { label: 'บัตรเงินสด', href: '/cash-card' },
 ];
 
-interface User {
-    name: string;
-    credit: number;
-    avatar?: string;
-}
-
 interface NavbarProps {
-    isLoggedIn?: boolean;
-    user?: User;
     onToggleSidebar?: () => void;
 }
 
-export default function Navbar({
-    isLoggedIn = false,
-    user = { name: 'CAT', credit: 0 },
-    onToggleSidebar
-}: NavbarProps) {
+export default function Navbar({ onToggleSidebar }: NavbarProps) {
     const [menuOpen, setMenuOpen] = useState(false);
     const pathname = usePathname();
+    const { user, isLoggedIn, toggleSidebar } = useAuth(); // ใช้ useAuth ที่มีอยู่แล้ว
 
     const handleHamburgerClick = () => {
         if (onToggleSidebar) {
             onToggleSidebar();
+        } else {
+            // ใช้ toggleSidebar จาก useAuth
+            toggleSidebar();
         }
         setMenuOpen(false);
     };
@@ -94,32 +86,32 @@ export default function Navbar({
             ) : (
                 // After Login - Show Profile and Hamburger Menu
                 <div className="hidden md:flex items-center gap-4 pr-6">
-                    {/* Profile Section with Link */}
+                    {/* Profile Section */}
                     <Link
                         href="/profile"
                         className="flex items-center gap-3 hover:bg-blue-700/50 p-2 rounded-lg transition-colors group"
                     >
                         <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                            {user.avatar ? (
+                            {user?.avatar ? (
                                 <Image
                                     src={user.avatar}
                                     alt="Profile"
-                                    width={40}
-                                    height={40}
+                                    width={50}
+                                    height={50}
                                     className="w-full h-full object-cover"
                                 />
                             ) : (
                                 <div className="w-full h-full bg-gray-400 flex items-center justify-center text-gray-600 font-semibold text-sm">
-                                    {user.name.charAt(0)}
+                                    {user?.name.charAt(0)}
                                 </div>
                             )}
                         </div>
                         <div className="text-right">
                             <div className="text-sm font-semibold text-white group-hover:text-blue-100 transition-colors">
-                                {user.name}
+                                {user?.name}
                             </div>
                             <div className="text-xs text-blue-200 group-hover:text-blue-100 transition-colors">
-                                ฿{user.credit.toFixed(2)} เครดิต
+                                ฿{user?.credit.toFixed(2)} เครดิต
                             </div>
                         </div>
                     </Link>
@@ -188,23 +180,23 @@ export default function Navbar({
                                 onClick={() => setMenuOpen(false)}
                             >
                                 <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                                    {user.avatar ? (
+                                    {user?.avatar ? (
                                         <Image
                                             src={user.avatar}
                                             alt="Profile"
-                                            width={40}
-                                            height={40}
+                                            width={50}
+                                            height={50}
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
                                         <div className="w-full h-full bg-gray-400 flex items-center justify-center text-gray-600 font-semibold text-sm">
-                                            {user.name.charAt(0)}
+                                            {user?.name.charAt(0)}
                                         </div>
                                     )}
                                 </div>
                                 <div>
-                                    <div className="text-sm font-semibold text-white">{user.name}</div>
-                                    <div className="text-xs text-blue-200">฿{user.credit.toFixed(2)} เครดิต</div>
+                                    <div className="text-sm font-semibold text-white">{user?.name}</div>
+                                    <div className="text-xs text-blue-200">฿{user?.credit.toFixed(2)} เครดิต</div>
                                 </div>
                             </Link>
 

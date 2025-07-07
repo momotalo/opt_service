@@ -1,9 +1,9 @@
 "use client";
 import React, { FC } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useAuth } from '@hooks/useAuth';
+import { useAuth } from '@hooks/useAuth'; // ใช้ของเดิมที่มีอยู่แล้ว
+import Image from 'next/image';
 
 interface ProfileMenuItem {
     id: string;
@@ -18,15 +18,24 @@ interface ProfileSidebarProps {
 
 const ProfileSidebar: FC<ProfileSidebarProps> = ({ className = '' }) => {
     const pathname = usePathname();
-    const { user, logout } = useAuth();
+    const { user, logout, isLoggedIn } = useAuth(); // ใช้ useAuth ที่มีอยู่แล้ว
 
-    // ใช้ข้อมูลจาก useAuth หรือข้อมูล default
-    const profileData = {
-        name: user?.name || 'CAT',
-        email: user?.email || 'min260845@gmail.com',
-        credits: user?.credit || 0.00,
-        avatar: user?.avatar || '/api/placeholder/40/40'
-    };
+    // ถ้าไม่ได้ login หรือไม่มี user ให้แสดง fallback
+    if (!isLoggedIn || !user) {
+        return (
+            <div className={`w-[260px] bg-[#0E345B] rounded-l-2xl overflow-hidden ${className}`}>
+                <div className="px-6 py-6 text-center text-white">
+                    <p>กรุณาเข้าสู่ระบบ</p>
+                    <Link
+                        href="/login"
+                        className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg inline-block transition-colors"
+                    >
+                        เข้าสู่ระบบ
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     const menuItems: ProfileMenuItem[] = [
         {
@@ -75,21 +84,32 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({ className = '' }) => {
             <div className="px-6 py-6 bg-[#0E345B]">
                 <div className="flex items-center space-x-3 mb-4">
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300 flex-shrink-0">
-                        <Image
-                            src={profileData.avatar}
-                            alt={profileData.name}
-                            width={48}
-                            height={48}
-                            className="w-full h-full object-cover"
-                        />
+                        {user.avatar ? (
+                            <Image
+                                src={user.avatar}
+                                alt={user.name}
+                                width={50}
+                                height={50}
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <div className="w-full h-full bg-gray-400 flex items-center justify-center text-gray-600 font-semibold text-sm">
+                                {user.name.charAt(0).toUpperCase()}
+                            </div>
+                        )}
                     </div>
                     <div className="flex-1 min-w-0">
                         <h3 className="font-bold text-base text-white truncate">
-                            {profileData.name}
+                            {user.name}
                         </h3>
                         <p className="text-sm text-blue-200 truncate">
-                            ฿{profileData.credits.toFixed(2)} เครดิต
+                            ฿{user.credit.toFixed(2)} เครดิต
                         </p>
+                        {user.email && (
+                            <p className="text-xs text-blue-300 truncate mt-1">
+                                {user.email}
+                            </p>
+                        )}
                     </div>
                 </div>
 
