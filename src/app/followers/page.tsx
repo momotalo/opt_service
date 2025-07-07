@@ -1,6 +1,7 @@
 import React from 'react'
 import AppLayout from '@components/layouts/AppLayout';
 import HeroBackground from '@components/layouts/HeroBackground'
+import AutoScroll from '@components/ui/AutoScroll';
 
 const socialApps = [
     { id: 'facebook', name: 'Facebook' },
@@ -19,21 +20,18 @@ const FollowersPage = () => {
     return (
         <AppLayout className='bg-[#F1F7FE]'>
             {/* Hero Background */}
-            <HeroBackground backgroundUrl="/images/bg-follow.jpg" className="mb-4">
-                <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] px-4 text-center">
-                    <h1 className='p-4 text-6xl text-[#1D3A5F] font-bold rounded-3xl bg-[#fff]'>บริการเพิ่มผู้ติดตามโซเชียล</h1>
-                    <p className="px-6 py-1 text-lg text-[#fff] bg-[#0E345B] rounded-b-4xl">
-                        หน้าหลัก / <span className='text-[#737373]'>เพิ่มผู้ติดตามโซเชียล</span></p>
-                </div>
+            <HeroBackground
+                backgroundUrl="/images/background/bg-follow.jpg"
+                title='บริการเพิ่มผู้ติดตามโซเชียล'
+                path='เพิ่มผู้ติดตามโซเชียล'
+                className="mb-4">
             </HeroBackground>
 
             {/* Container Section */}
-            <div className="container w-[80%] mx-auto my-8 p-4">
+            <div className="container w-[80%] mx-auto my-8">
 
                 {/* Auto Scrolling */}
-                <div className="flex justify-center items-center w-full h-[130px] border-2 rounded-2xl bg-[#fff]">
-                    <h1 className="font-mono text-[35px] font-bold ">Auto Scrolling</h1>
-                </div>
+                <AutoScroll />
 
                 {/* List App Section */}
                 <div className="my-4 sm:my-6">

@@ -1,7 +1,8 @@
 import AppLayout from '@components/layouts/AppLayout'
 import HeroBackground from '@components/layouts/HeroBackground'
-import GameCard from '@components/GameCard'
+import GameCard from '@components/ui/GameCard'
 import React from 'react'
+import AutoScroll from '@components/ui/AutoScroll'
 
 const GameTopUpPage = () => {
 
@@ -52,23 +53,18 @@ const GameTopUpPage = () => {
         <AppLayout className='bg-[#F1F7FE]'>
 
             <HeroBackground
-                backgroundUrl="/images/bg-game.jpg"
+                backgroundUrl="/images/background/bg-game.jpg"
+                title='บริการเติมเกมออนไลน์ราคาถูก'
+                path='เติมเกมออนไลน์'
                 className="mb-4"
             >
-                <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] px-4 text-center">
-                    <h1 className='p-4 text-6xl text-[#1D3A5F] font-bold rounded-3xl bg-[#fff]'>บริการเติมเกมออนไลน์ราคาถูก</h1>
-                    <p className="px-6 py-1 text-lg text-[#fff] bg-[#0E345B] rounded-b-4xl">
-                        หน้าหลัก / <span className='text-[#737373]'>เติมเกมออนไลน์</span></p>
-                </div>
             </HeroBackground>
 
             {/* Container Section */}
             <div className="container w-[80%] mx-auto my-8 p-4">
 
                 {/* Auto Scrolling */}
-                <div className="flex justify-center items-center w-full h-[130px] border-2 rounded-2xl bg-[#fff]">
-                    <h1 className="font-mono text-[35px] font-bold ">Auto Scrolling</h1>
-                </div>
+                <AutoScroll />
 
                 {/* Search Gmae Section */}
                 <div className="py-6">
