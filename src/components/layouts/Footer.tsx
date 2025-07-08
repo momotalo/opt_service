@@ -11,8 +11,8 @@ const Footer: React.FC = () => {
                         {/* Left Image */}
                         <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
                             <Image
-                                src="/images/government-logo.png"
-                                alt="Government Logo"
+                                src="/images/government.svg"
+                                alt="โลโก้ กสทช."
                                 width={48}
                                 height={48}
                                 className="object-contain"
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
                                 <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
                                     <span className="text-white text-sm font-bold">f</span>
                                 </div>
-                                <span className="text-sm">RinterX</span>
+                                <span className="text-[#000] text-2xl font-bold">RinterX</span>
                             </a>
 
                             {/* Line */}
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
                                 <div className="w-8 h-8 bg-green-500 rounded flex items-center justify-center">
                                     <span className="text-white text-xs font-bold">LINE</span>
                                 </div>
-                                <span className="text-sm">@RinterX</span>
+                                <span className="text-[#000] text-2xl font-bold">@RinterX</span>
                             </a>
                         </div>
                     </div>

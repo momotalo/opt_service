@@ -10,7 +10,7 @@ import { PhoneGrid } from '@components/phone';
 import { PaymentHeroSection } from '@components/payment';
 import { SectionHeader } from '@components/shared';
 import { OurService, WhyChooseUs } from '@components/landing';
-import { phoneNumbers, apps, socialApps, paymentMethods, heroContent } from '@data/constants';
+import { phoneNumbers, apps, socialApps, paymentMethods } from '@data/constants';
 
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
 
       {/* Hero Background Section */}
       <HeroBackground
-        backgroundUrl="/images/OTP.svg"
+        backgroundUrl="/images/background/bg-otp.svg"
         className="mb-4"
       >
         <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
@@ -155,7 +155,7 @@ export default function Home() {
 
       {/* Auto Top up System */}
       <PaymentHeroSection
-        heroContent={heroContent}
+        btnLink="/"
         paymentMethods={paymentMethods}
         onPaymentClick={(payment) => {
           console.log(`Selected payment: ${payment.name}`);

@@ -4,23 +4,17 @@ import PaymentGrid from './PaymentGrid';
 import { PaymentMethod } from 'types/index'
 
 interface PaymentHeroSectionProps {
-    heroContent: {
-        title: string;
-        subtitle: string;
-        description: string;
-        buttonText: string;
-        buttonHref: string;
-    };
     paymentMethods: PaymentMethod[];
     onPaymentClick?: (payment: PaymentMethod) => void;
+    btnLink?: string;
     className?: string;
     height?: string;
 }
 
 const PaymentHeroSection: React.FC<PaymentHeroSectionProps> = ({
-    heroContent,
     paymentMethods,
     onPaymentClick,
+    btnLink = "",
     className = "",
     height = "h-[520px]"
 }) => {
@@ -29,7 +23,7 @@ const PaymentHeroSection: React.FC<PaymentHeroSectionProps> = ({
             <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
                 {/* Left Section - Text Content */}
-                <HeroTextContent content={heroContent} />
+                <HeroTextContent btnLink={btnLink} />
 
                 {/* Right Section - Payment Methods */}
                 <PaymentGrid

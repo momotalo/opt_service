@@ -22,19 +22,19 @@ const PaymentCard: React.FC<PaymentCardProps> = ({
     return (
         <div
             onClick={handleClick}
-            className={`bg-white rounded-2xl p-4 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow 
+            className={`bg-[#fff] rounded-2xl py-1 shadow-lg border-gray-500 hover:shadow-xl transition-shadow 
                 duration-300 cursor-pointer group ${className}`}
         >
-            <div className="w-full h-16 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="w-full h-26 rounded-lg flex items-center justify-center overflow-hidden">
                 <Image
                     src={payment.logoUrl}
                     alt={payment.name}
                     width={payment.width || 100}
                     height={payment.height || 50}
-                    className="object-contain group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = '/images/placeholder.png';
+                        target.src = '/images/bot-icon.png';
                     }}
                 />
             </div>
