@@ -3,15 +3,17 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { HiChevronUp, HiChevronDown } from 'react-icons/hi2';
-import { useAuth } from '@hooks/useAuth'; // ใช้ของเดิมที่มีอยู่แล้ว
 import UserProfile from '@components/shared/UserProfile';
+import { useAuth } from '@hooks/useAuth';
 
 // Import types and menu data
-import { MenuItem, SubMenuItem } from '../../types/sidebar';
-import { menuItems } from '../../data/sidebarMenu';
+import { MenuItem, SubMenuItem, User } from 'types/sidebar';
+import { menuItems } from 'data/sidebarMenu';
 
 interface SidebarProps {
     className?: string;
+    user?: User;
+    onLogout?: () => void;
     onCloseSidebar?: () => void;
 }
 

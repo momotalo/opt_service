@@ -4,7 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { useAuth } from '@hooks/useAuth'; // ใช้ของเดิมที่มีอยู่แล้ว
+import { useAuth } from '@hooks/useAuth';
+import { User } from 'types/user';
 
 const navItems = [
     { label: 'แอคเคาท์', href: '/account' },
@@ -15,6 +16,8 @@ const navItems = [
 ];
 
 interface NavbarProps {
+    isLoggedIn?: boolean;
+    user?: User;
     onToggleSidebar?: () => void;
 }
 
