@@ -8,6 +8,7 @@ interface AuthImageCardProps {
     imagePosition?: 'left' | 'right';
     imageSrc: string;
     imageAlt?: string;
+    className?: string;
 }
 
 const AuthImageCard: FC<AuthImageCardProps> = ({
@@ -15,12 +16,13 @@ const AuthImageCard: FC<AuthImageCardProps> = ({
     description,
     imagePosition = 'left',
     imageSrc,
-    imageAlt = 'Background'
+    imageAlt = 'Background',
+    className = "",
 }) => {
     const roundedClass = imagePosition === 'left' ? 'rounded-l-3xl' : 'rounded-r-3xl';
 
     return (
-        <div className={`relative overflow-hidden ${roundedClass} h-full bg-[#0E345B]`}>
+        <div className={`relative overflow-hidden ${roundedClass} h-full bg-[#0E345B] ${className}`}>
             {/* Character Avatar */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -mt-8">
                 <div className="w-[270px] h-[270px] bg-white rounded-[70px] flex items-center justify-center shadow-2xl">

@@ -1,11 +1,8 @@
 "use client"
-import AppLayout from '@components/layouts/AppLayout'
-import HeroBackground from '@components/layouts/HeroBackground'
-import AutoScroll from '@components/ui/AutoScroll'
-import Button from '@components/ui/Button'
-import SearchInput from '@components/ui/SearchInput'
-import ProductCard from '@components/ui/ProductCard'
 import React, { useState } from 'react'
+import { AppLayout, HeroBackground } from '@components/layouts'
+import { AutoScroll, Button, SearchInput, AccountProductCard } from '@components/ui'
+import { useRouter } from 'next/navigation'
 
 const ListSortItem = [
     { id: 'all', name: 'ทั้งหมด' },
@@ -20,7 +17,7 @@ const mockProducts = [
     {
         id: 1,
         name: 'FACEBOOK',
-        imgSrc: '/images/icons/facebook.png',
+        imgSrc: '/images/socials/facebook.svg',
         price: 15,
         priceDefault: 20,
         save: 5,
@@ -29,7 +26,7 @@ const mockProducts = [
     {
         id: 2,
         name: 'TIKTOK',
-        imgSrc: '/images/icons/tiktok.png',
+        imgSrc: '/images/socials/tiktok.svg',
         price: 15,
         priceDefault: 20,
         save: 5,
@@ -38,7 +35,7 @@ const mockProducts = [
     {
         id: 3,
         name: 'INSTAGRAM',
-        imgSrc: '/images/icons/instagram.png',
+        imgSrc: '/images/socials/instagram.svg',
         price: 15,
         priceDefault: 20,
         save: 5,
@@ -47,7 +44,7 @@ const mockProducts = [
     {
         id: 4,
         name: 'TWITTER',
-        imgSrc: '/images/icons/twitter.png',
+        imgSrc: '/images/socials/twitter.svg',
         price: 15,
         priceDefault: 20,
         save: 5,
@@ -56,7 +53,7 @@ const mockProducts = [
     {
         id: 5,
         name: 'FACEBOOK',
-        imgSrc: '/images/icons/facebook.png',
+        imgSrc: '/images/socials/facebook.svg',
         price: 15,
         priceDefault: 20,
         save: 5,
@@ -65,7 +62,7 @@ const mockProducts = [
     {
         id: 6,
         name: 'TIKTOK',
-        imgSrc: '/images/icons/tiktok.png',
+        imgSrc: '/images/socials/tiktok.svg',
         price: 15,
         priceDefault: 20,
         save: 5,
@@ -74,7 +71,7 @@ const mockProducts = [
     {
         id: 7,
         name: 'INSTAGRAM',
-        imgSrc: '/images/icons/instagram.png',
+        imgSrc: '/images/socials/instagram.svg',
         price: 15,
         priceDefault: 20,
         save: 5,
@@ -83,7 +80,7 @@ const mockProducts = [
     {
         id: 8,
         name: 'TWITTER',
-        imgSrc: '/images/icons/twitter.png',
+        imgSrc: '/images/socials/twitter.svg',
         price: 15,
         priceDefault: 20,
         save: 5,
@@ -93,6 +90,7 @@ const mockProducts = [
 
 const AccountPage = () => {
 
+    const router = useRouter();
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -104,8 +102,7 @@ const AccountPage = () => {
     type Product = typeof mockProducts[number];
 
     const handleProductClick = (product: Product) => {
-        console.log('Product clicked:', product);
-        // Handle product selection logic here
+        router.push(`/account/${product.id}`);
     };
 
     const handleCategoryClick = (categoryId: string) => {
@@ -165,7 +162,7 @@ const AccountPage = () => {
                 {/* Product Cards Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8">
                     {filteredProducts.map((product) => (
-                        <ProductCard
+                        <AccountProductCard
                             key={product.id}
                             name={product.name}
                             imgSrc={product.imgSrc}

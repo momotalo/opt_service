@@ -2,7 +2,7 @@ import React from 'react'
 import AppLayout from '@components/layouts/AppLayout'
 import HeroBackground from '@components/layouts/HeroBackground'
 import AutoScroll from '@components/ui/AutoScroll'
-import { OtpServiceSelection } from '@components/Services'
+import { OtpServiceSelection } from '@components/otp'
 
 const OtpPage = () => {
 

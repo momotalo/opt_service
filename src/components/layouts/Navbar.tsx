@@ -37,7 +37,7 @@ export default function Navbar({ onToggleSidebar }: NavbarProps) {
     };
 
     return (
-        <nav className="relative flex items-center justify-between h-[60px] pl-6 text-[#fff] bg-[#0E345B] shadow-md z-50">
+        <nav className="relative flex items-center justify-between h-[60px] pl-8 text-[#fff] bg-[#0E345B] shadow-md z-50">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
                 <Image
@@ -49,7 +49,7 @@ export default function Navbar({ onToggleSidebar }: NavbarProps) {
                 />
                 <div className="leading-tight">
                     <div className="text-sm font-semibold">R-OTP24HR.COM</div>
-                    <div className="text-xs text-gray-300">บริการขาย OTP เริ่มต้น</div>
+                    <div className="text-sm text-gray-300">บริการขาย OTP เริ่มต้น</div>
                 </div>
             </Link>
 
@@ -92,7 +92,7 @@ export default function Navbar({ onToggleSidebar }: NavbarProps) {
                     {/* Profile Section */}
                     <Link
                         href="/profile"
-                        className="flex items-center gap-3 hover:bg-blue-700/50 p-2 rounded-lg transition-colors group"
+                        className="flex items-center gap-3 hover:bg-blue-700/50 p-2 transition-colors group"
                     >
                         <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
                             {user?.avatar ? (

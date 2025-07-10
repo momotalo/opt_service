@@ -1,15 +1,10 @@
 'use client'
 
 import Link from "next/link";
-import HeroBackground from "@components/layouts/HeroBackground";
-import AppLayout from "@components/layouts/AppLayout";
+import { AppLayout, HeroBackground } from "@components/layouts";
 import AutoScroll from "@components/ui/AutoScroll";
-import { ServiceGrid } from '@components/Services';
-import { AppGrid, SocialAppGrid } from '@components/apps';
-import { PhoneGrid } from '@components/phone';
-import { PaymentHeroSection } from '@components/payment';
 import { SectionHeader } from '@components/shared';
-import { OurService, WhyChooseUs } from '@components/landing';
+import { OurService, WhyChooseUs, ServiceGrid, AppGrid, SocialAppGrid, PhoneGrid, PaymentHeroSection } from '@components/landing';
 import { phoneNumbers, apps, socialApps, paymentMethods } from '@data/constants';
 
 
