@@ -4,57 +4,37 @@ import AppLayout from '@components/layouts/AppLayout';
 import CashCard from '@components/ui/CashCard';
 import AutoScroll from '@components/ui/AutoScroll';
 
-const CashCardSalesPage = () => {
+const CashCardPage = () => {
 
     const cashCards = [
         {
-            cardType: 'ROBLOX' as const,
-            logoSrc: '/api/placeholder/48/48', // Replace with actual Roblox logo
+            id: 1,
+            cardType: 'CASH' as const,
+            logoSrc: '/images/cash-card/cash.svg',
             backgroundColor: '#FF6B8A',
             headerColor: '#E53E3E'
         },
         {
+            id: 2,
             cardType: 'STEAM' as const,
-            logoSrc: '/api/placeholder/48/48', // Replace with actual Steam logo
+            logoSrc: '/images/cash-card/steam.svg',
             backgroundColor: '#A0A0A0',
             headerColor: '#2D3748'
         },
         {
+            id: 3,
             cardType: 'RIOT' as const,
-            logoSrc: '/api/placeholder/48/48', // Replace with actual Riot logo
+            logoSrc: '/images/cash-card/riot.svg',
             backgroundColor: '#FF6B8A',
             headerColor: '#E53E3E'
         },
         {
-            cardType: 'GAREBA' as const,
-            logoSrc: '/api/placeholder/48/48', // Replace with actual Garena logo
+            id: 4,
+            cardType: 'NINTENDO' as const,
+            logoSrc: '/images/cash-card/nintendo.svg',
             backgroundColor: '#A0A0A0',
             headerColor: '#2D3748'
         },
-        {
-            cardType: 'ROBLOX' as const,
-            logoSrc: '/api/placeholder/48/48', // Replace with actual Roblox logo
-            backgroundColor: '#FF6B8A',
-            headerColor: '#E53E3E'
-        },
-        {
-            cardType: 'STEAM' as const,
-            logoSrc: '/api/placeholder/48/48', // Replace with actual Steam logo
-            backgroundColor: '#A0A0A0',
-            headerColor: '#2D3748'
-        },
-        {
-            cardType: 'RIOT' as const,
-            logoSrc: '/api/placeholder/48/48', // Replace with actual Riot logo
-            backgroundColor: '#FF6B8A',
-            headerColor: '#E53E3E'
-        },
-        {
-            cardType: 'GAREBA' as const,
-            logoSrc: '/api/placeholder/48/48', // Replace with actual Garena logo
-            backgroundColor: '#A0A0A0',
-            headerColor: '#2D3748'
-        }
     ];
 
     return (
@@ -80,6 +60,7 @@ const CashCardSalesPage = () => {
                         {cashCards.map((card, index) => (
                             <CashCard
                                 key={`row1-${index}`}
+                                id={card.id}
                                 cardType={card.cardType}
                                 logoSrc={card.logoSrc}
                                 backgroundColor={card.backgroundColor}
@@ -94,4 +75,4 @@ const CashCardSalesPage = () => {
     )
 }
 
-export default CashCardSalesPage
+export default CashCardPage

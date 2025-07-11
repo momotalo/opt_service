@@ -1,7 +1,7 @@
 "use client"
 import { useParams } from 'next/navigation';
-import { AppLayout } from '@components/layouts';
-import { ProductDetail } from '@components/account';
+import { AppLayout, HeroBackground } from '@components/layouts';
+import { AccountDetailSection } from '@components/account';
 
 const ProductPurchasePage = () => {
     const params = useParams();
@@ -9,7 +9,13 @@ const ProductPurchasePage = () => {
 
     return (
         <AppLayout className='bg-[#F1F7FE]'>
-            <ProductDetail productId={productId} />
+            <HeroBackground
+                backgroundUrl="/images/background/bg-follow.jpg"
+                title='บริการขายแอคเคาท์สตรีมมิ่งราคาถูก'
+                path='แอคเคาท์สตรีมมิ่ง'
+                className="mb-4">
+            </HeroBackground>
+            <AccountDetailSection productId={productId} />
         </AppLayout>
     );
 };

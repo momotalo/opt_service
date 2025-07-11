@@ -1,5 +1,7 @@
-export { default as ProductDetail } from "./ProductDetail";
-export { default as PriceDisplay } from "./PriceDisplay";
-export { default as PurchaseButton } from "./PurchaseButton";
-export { default as QuantitySelector } from "./QuantitySelector";
-export { default as ProductSelection } from "./ProductSelection";
+export { default as AccountDetailSection } from "./AccountDetailSection";
+export { default as AccountSelectionSection } from "./AccountSelectionSection";
+
+// Import from shared
+export { default as PriceDisplay } from "../shared/PriceDisplay";
+export { default as PurchaseButton } from "../shared/PurchaseButton";
+export { default as QuantitySelector } from "../shared/QuantitySelector";

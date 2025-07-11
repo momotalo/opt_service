@@ -1,53 +1,42 @@
-import AppLayout from '@components/layouts/AppLayout'
-import HeroBackground from '@components/layouts/HeroBackground'
-import GameCard from '@components/ui/GameCard'
+"use client"
+import { AppLayout, HeroBackground } from '@components/layouts'
+import { AutoScroll, GameCard } from '@components/ui'
+import { useRouter } from 'next/navigation'
 import React from 'react'
-import AutoScroll from '@components/ui/AutoScroll'
 
 const GameTopUpPage = () => {
+    const router = useRouter();
 
     const games = [
         {
+            id: "garena",
             title: "Garena Free Fire",
-            image: "/api/placeholder/200/120",
-            discount: "0.00"
+            image: "/images/games/garena.svg",
+            discount: "20.00"
         },
         {
+            id: "rov",
             title: "ROV: Arena of Valor",
-            image: "/api/placeholder/200/120",
-            discount: "0.00"
+            image: "/images/games/rov.svg",
+            discount: "15.00"
         },
         {
+            id: "valorant",
             title: "VALORANT",
-            image: "/api/placeholder/200/120",
-            discount: "0.00"
+            image: "/images/games/valorant.svg",
+            discount: "25.00"
         },
         {
+            id: "fc-mobile",
             title: "EA SPORTS FC MOBILE",
-            image: "/api/placeholder/200/120",
-            discount: "0.00"
+            image: "/images/games/fc-mobile.svg",
+            discount: "10.00"
         },
-        {
-            title: "Garena Free Fire",
-            image: "/api/placeholder/200/120",
-            discount: "0.00"
-        },
-        {
-            title: "ROV: Arena of Valor",
-            image: "/api/placeholder/200/120",
-            discount: "0.00"
-        },
-        {
-            title: "VALORANT",
-            image: "/api/placeholder/200/120",
-            discount: "0.00"
-        },
-        {
-            title: "EA SPORTS FC MOBILE",
-            image: "/api/placeholder/200/120",
-            discount: "0.00"
-        }
     ];
+
+    const handleGameClick = (gameId: string) => {
+        router.push(`/topup/${gameId}`);
+    };
 
     return (
         <AppLayout className='bg-[#F1F7FE]'>
@@ -85,9 +74,11 @@ const GameTopUpPage = () => {
                         {games.map((game, index) => (
                             <GameCard
                                 key={`row1-${index}`}
+                                id={game.id}
                                 title={game.title}
                                 image={game.image}
                                 discount={game.discount}
+                                onClick={() => handleGameClick(game.id)}
                             />
                         ))}
                     </div>
