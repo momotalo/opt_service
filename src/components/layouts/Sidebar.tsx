@@ -1,3 +1,4 @@
+"use client";
 import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -22,7 +23,7 @@ const Sidebar: FC<SidebarProps> = ({
     onCloseSidebar
 }) => {
     const pathname = usePathname();
-    const { user, logout, isLoggedIn, closeSidebar } = useAuth(); // ใช้ useAuth ที่มีอยู่แล้ว
+    const { user, logout, isLoggedIn, closeSidebar } = useAuth();
     const [openDropdowns, setOpenDropdowns] = useState<string[]>([]);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 

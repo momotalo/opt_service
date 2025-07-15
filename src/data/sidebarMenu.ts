@@ -37,9 +37,9 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
-    id: "topup",
+    id: "credit",
     label: "เติมเครดิต",
-    href: "/topup",
+    href: "/credit",
     icon: React.createElement(HiOutlineInformationCircle),
     iconColor: "text-green-400",
   },
